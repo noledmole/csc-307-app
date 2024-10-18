@@ -16,12 +16,12 @@ function TableHeader() {
 
 function TableBody({ characterData, removeCharacter }) {
   const rows = characterData.map((row, index) => (
-    <tr key={row.id}>
-      <td>{row.id}</td>
+    <tr key={row._id}>
+      <td>{row._id}</td>
       <td>{row.name}</td>
       <td>{row.job}</td>
       <td>
-        <button onClick={() => removeCharacter(index, row.id)}>Delete</button>
+        <button onClick={() => removeCharacter(index, row._id)}>Delete</button>
       </td>
     </tr>
   ));

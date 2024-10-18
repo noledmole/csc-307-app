@@ -42,13 +42,16 @@ function MyApp() {
   }
 
   // Function to handle deletion of a character
-  function removeOneCharacter(index, id) {
-    return fetch(`http://localhost:8000/users/${id}`, {
+  function removeOneCharacter(_id) {
+    fetch(`http://localhost:8000/users/${_id}`, {
       method: "DELETE",
     })
-      .then(() => {
-        const updated = characters.filter((_, i) => i !== index);
-        setCharacters(updated);
+      .then((res) => {
+        if (res.status === 204) {
+          setCharacters(characters.filter((character) => character._id !== _id));
+        } else {
+          throw new Error("Failed to delete user");
+        }
       })
       .catch((error) => {
         console.error("Error deleting user:", error);
