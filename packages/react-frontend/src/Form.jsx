@@ -1,23 +1,20 @@
-// src/Form.jsx
 import React, { useState } from "react";
 
 function Form({ handleSubmit }) {
-  // State for the form's input fields
   const [person, setPerson] = useState({ name: "", job: "" });
 
-  // Handle input change
+  // Handle input changes
   function handleChange(event) {
     const { name, value } = event.target;
-    setPerson((prevPerson) => ({
-      ...prevPerson,
-      [name]: value,
-    }));
+    setPerson({ ...person, [name]: value });
   }
 
-  // Handle form submission
+  // Submit the form
   function submitForm() {
-    handleSubmit(person);
-    setPerson({ name: "", job: "" }); // Reset form fields
+    if (person.name && person.job) {
+      handleSubmit(person);
+      setPerson({ name: "", job: "" }); // Clear the form after submission
+    }
   }
 
   return (
@@ -38,7 +35,6 @@ function Form({ handleSubmit }) {
         value={person.job}
         onChange={handleChange}
       />
-      {/* Submit button triggers the submit handler */}
       <input type="button" value="Submit" onClick={submitForm} />
     </form>
   );
